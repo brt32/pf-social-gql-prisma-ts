@@ -1,14 +1,23 @@
 import { Context } from "./../index";
 
 export const Query = {
-  posts: (_: any, __: any, { prisma }: Context) => {
+  posts: (
+    _: any,
+    { take, skip }: { take: number; skip: number },
+    { prisma }: Context
+  ) => {
     return prisma.post.findMany({
       // if return a promise, not needed to add async/await
+      where: {
+        published: true,
+      },
       orderBy: [
         {
           createdAt: "desc",
         },
       ],
+      skip,
+      take,
     });
   },
   me: (_: any, __: any, { prisma, userInfo }: Context) => {
