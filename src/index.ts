@@ -26,6 +26,7 @@ const server = new ApolloServer({
     Post,
     User,
   },
+  cors: true,
   context: async ({ req }: any): Promise<Context> => {
     const userInfo = await getUserFromToken(req.headers.authorization);
     return {
